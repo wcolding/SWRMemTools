@@ -43,18 +43,18 @@ public:
     char repairHealth;
 private:
 	char pad;
-};
+}; 
 static_assert(sizeof(SWR_SaveData) == 0x50, "RacerSaveData resized!");
 
 #pragma pack(pop)
 
 class SaveManager {
 public:
-    SaveManager(SWR_SaveData* save);
-
+    SaveManager(SWR_SaveData* saveData);
+    void InitializeSaveData();
     void GiveMoney(int amount);
     void GivePitDroid();
     
 private:
-    SWR_SaveData* _save;
+    SWR_SaveData* _saveData;
 };
