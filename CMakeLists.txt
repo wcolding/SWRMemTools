@@ -6,6 +6,8 @@ add_library(SWRMemTools
     src/Save.cpp
 )
 
+set_target_properties(SWRMemTools PROPERTIES COMPILE_OPTIONS "-m32" LINK_FLAGS "-m32")
+
 Include(FetchContent)
 
 FetchContent_Declare(
@@ -16,9 +18,14 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(tests tests/test_Save.cpp)
+add_executable(tests 
+    tests/test_32bit.cpp    
+    tests/test_Save.cpp
+)
+
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(tests PRIVATE SWRMemTools)
+set_target_properties(tests PROPERTIES COMPILE_OPTIONS "-m32" LINK_FLAGS "-m32")
 
 include(CTest)
 include(Catch)
