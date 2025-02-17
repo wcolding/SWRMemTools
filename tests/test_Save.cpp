@@ -27,4 +27,12 @@ TEST_CASE("SaveManager functions work") {
 		sm.GivePitDroid();
 		REQUIRE(save.pitDroids == 2);
 	}
+
+	SECTION("Give Racer works") {
+		sm.GiveRacer(RacerUnlocks::BolesRoor);
+		sm.GiveRacer(RacerUnlocks::FudSang);
+		REQUIRE((sm.apRacerUnlocks & RacerUnlocks::Sebulba) == 0);
+		REQUIRE((sm.apRacerUnlocks & RacerUnlocks::BolesRoor) != 0);
+		REQUIRE((sm.apRacerUnlocks & RacerUnlocks::FudSang) != 0);
+	}
 }

@@ -40,3 +40,7 @@ void SaveManager::GiveMoney(int amount) {
 void SaveManager::GivePitDroid() {
     _saveData->pitDroids++;
 }
+
+void SaveManager::GiveRacer(RacerUnlocks racer) {
+    apRacerUnlocks |= racer;
+}
