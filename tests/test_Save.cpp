@@ -2,14 +2,29 @@
 
 #include "../src/Save.h"
 
-TEST_CASE("SaveManager initialize works") {
+TEST_CASE("SaveManager functions work") {
 	SWR_SaveData save;
 	SaveManager sm(&save);
 	sm.InitializeSaveData();
 
-	REQUIRE(save.amateurUnlocks == 1);
-	REQUIRE(save.semiproUnlocks == 0);
-	REQUIRE(save.galacticUnlocks == 0);
-	REQUIRE(save.invitationalUnlocks == 0);
-	REQUIRE(save.money == 3000);
+	SECTION("Initialize function works") {
+		REQUIRE(save.amateurUnlocks == 1);
+		REQUIRE(save.semiproUnlocks == 0);
+		REQUIRE(save.galacticUnlocks == 0);
+		REQUIRE(save.invitationalUnlocks == 0);
+		REQUIRE(save.money == 3000);
+	}
+
+	SECTION("GiveMoney works") {
+		sm.GiveMoney(200);
+		REQUIRE(save.money == 3200);
+		sm.GiveMoney(60);
+		REQUIRE(save.money == 3260);
+	}
+
+	SECTION("GivePitDroid works") {
+		sm.GivePitDroid();
+		sm.GivePitDroid();
+		REQUIRE(save.pitDroids == 2);
+	}
 }
