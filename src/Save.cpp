@@ -1,5 +1,7 @@
 #include "Save.h"
 
+#include <cmath>
+
 SaveManager::SaveManager(SWR_SaveData* saveData) {
     _saveData = saveData;
 }
@@ -43,4 +45,31 @@ void SaveManager::GivePitDroid() {
 
 void SaveManager::GiveRacer(RacerUnlocks racer) {
     apRacerUnlocks |= racer;
+}
+
+void SaveManager::RecalculateCourseUnlockFlags() {
+    _saveData->amateurUnlocks = pow(2, amateurCoursesReceived) - 1;
+    _saveData->semiproUnlocks = pow(2, semiproCoursesReceived) - 1;
+    _saveData->galacticUnlocks = pow(2, galacticCoursesReceived) - 1;
+    _saveData->invitationalUnlocks = pow(2, invitationalCoursesReceived) - 1;
+}
+
+void SaveManager::GiveAmateurCourse() {
+    amateurCoursesReceived++;
+    RecalculateCourseUnlockFlags();
+}
+
+void SaveManager::GiveSemiproCourse() {
+    semiproCoursesReceived++;
+    RecalculateCourseUnlockFlags();
+}
+
+void SaveManager::GiveGalacticCourse() {
+    galacticCoursesReceived++;
+    RecalculateCourseUnlockFlags();
+}
+
+void SaveManager::GiveInvitationalCourse() {
+    invitationalCoursesReceived++;
+    RecalculateCourseUnlockFlags();
 }

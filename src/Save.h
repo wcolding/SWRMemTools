@@ -86,9 +86,20 @@ public:
     void GiveMoney(int amount);
     void GivePitDroid();
     void GiveRacer(RacerUnlocks racer);
+    void GiveAmateurCourse();
+    void GiveSemiproCourse();
+    void GiveGalacticCourse();
+    void GiveInvitationalCourse();
 
     RacerUnlocks apRacerUnlocks = RacerUnlocks::None;
     
 private:
     SWR_SaveData* _saveData;
+
+    int amateurCoursesReceived = 1;
+    int semiproCoursesReceived = 0;
+    int galacticCoursesReceived = 0;
+    int invitationalCoursesReceived = 0;
+
+    void RecalculateCourseUnlockFlags();
 };

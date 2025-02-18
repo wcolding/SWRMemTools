@@ -35,4 +35,23 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE((sm.apRacerUnlocks & RacerUnlocks::BolesRoor) != 0);
 		REQUIRE((sm.apRacerUnlocks & RacerUnlocks::FudSang) != 0);
 	}
+
+	SECTION("GiveCourse") {
+		sm.GiveAmateurCourse();
+		REQUIRE(save.amateurUnlocks == 0b00000011);
+
+		sm.GiveSemiproCourse();
+		sm.GiveSemiproCourse();
+		REQUIRE(save.semiproUnlocks == 0b00000011);
+
+		sm.GiveGalacticCourse();
+		sm.GiveGalacticCourse();
+		sm.GiveGalacticCourse();
+		REQUIRE(save.galacticUnlocks == 0b00000111);
+
+		sm.GiveInvitationalCourse();
+		REQUIRE(save.invitationalUnlocks == 0b00000001);
+
+		REQUIRE(save.galacticUnlocks == 0b00000111);
+	}
 }
