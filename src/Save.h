@@ -90,6 +90,13 @@ public:
     void GiveSemiproCourse();
     void GiveGalacticCourse();
     void GiveInvitationalCourse();
+    void GiveTractionPart(int level = -1);
+    void GiveTurningPart(int level = -1);
+    void GiveAccelerationPart(int level = -1);
+    void GiveTopSpeedPart(int level = -1);
+    void GiveAirbrakePart(int level = -1);
+    void GiveCoolingPart(int level = -1);
+    void GiveRepairPart(int level = -1);
 
     bool isSaveReady();
 

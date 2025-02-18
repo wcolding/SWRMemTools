@@ -1,6 +1,7 @@
 #include "Save.h"
 
 #include <cmath>
+#include <algorithm>
 
 SaveManager::SaveManager(SWR_SaveData* saveData) {
     _saveData = saveData;
@@ -76,4 +77,60 @@ void SaveManager::GiveGalacticCourse() {
 void SaveManager::GiveInvitationalCourse() {
     invitationalCoursesReceived++;
     RecalculateCourseUnlockFlags();
+}
+
+bool GivePart(char& part, int level) {
+    if (level == -1) {
+        level = part + 1;
+    }
+    
+    level = std::clamp(level, 0, 6);
+    if (part < level) {
+        part = level;
+        return true;
+    }
+
+    return false;
+}
+
+void SaveManager::GiveTractionPart(int level) {
+    if (GivePart(_saveData->tractionLevel, level)) {
+        _saveData->tractionHealth = 0xFF;
+    }
+}
+
+void SaveManager::GiveTurningPart(int level) {
+    if (GivePart(_saveData->turningLevel, level)) {
+        _saveData->turningHealth = 0xFF;
+    }
+}
+
+void SaveManager::GiveAccelerationPart(int level) {
+    if (GivePart(_saveData->accelerationLevel, level)) {
+        _saveData->accelerationHealth = 0xFF;
+    }
+}
+
+void SaveManager::GiveTopSpeedPart(int level) {
+    if (GivePart(_saveData->topSpeedLevel, level)) {
+        _saveData->topSpeedHealth = 0xFF;
+    }
+}
+
+void SaveManager::GiveAirbrakePart(int level) {
+    if (GivePart(_saveData->airbrakeLevel, level)) {
+        _saveData->airbrakeHealth = 0xFF;
+    }
+}
+
+void SaveManager::GiveCoolingPart(int level) {
+    if (GivePart(_saveData->coolingLevel, level)) {
+        _saveData->coolingHealth = 0xFF;
+    }
+}
+
+void SaveManager::GiveRepairPart(int level) {
+    if (GivePart(_saveData->repairLevel, level)) {
+        _saveData->repairHealth = 0xFF;
+    }
 }

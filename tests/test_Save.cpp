@@ -60,4 +60,35 @@ TEST_CASE("SaveManager functions work") {
 
 		REQUIRE(save.galacticUnlocks == 0b00000111);
 	}
+
+	SECTION("Give Parts") {
+		sm.GiveTractionPart();
+		REQUIRE(save.tractionLevel == 1);
+		sm.GiveTractionPart(3);
+		REQUIRE(save.tractionLevel == 3);
+		sm.GiveTractionPart();
+		REQUIRE(save.tractionLevel == 4);
+
+		save.tractionHealth = 0x10;
+		sm.GiveTractionPart(8);
+		REQUIRE(save.tractionLevel == 6);
+		REQUIRE(save.tractionHealth == static_cast<char>(0xFF));
+		
+		sm.GiveTractionPart(2);
+		REQUIRE(save.tractionLevel == 6);
+
+		sm.GiveTurningPart(1);
+		sm.GiveAccelerationPart(2);
+		sm.GiveTopSpeedPart(3);
+		sm.GiveAirbrakePart(4);
+		sm.GiveCoolingPart(5);
+		sm.GiveRepairPart(6);
+
+		REQUIRE(save.turningLevel == 1);
+		REQUIRE(save.accelerationLevel == 2);
+		REQUIRE(save.topSpeedLevel == 3);
+		REQUIRE(save.airbrakeLevel == 4);
+		REQUIRE(save.coolingLevel == 5);
+		REQUIRE(save.repairLevel == 6);
+	}
 }
