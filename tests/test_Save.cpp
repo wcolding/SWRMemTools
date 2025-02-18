@@ -42,7 +42,7 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE((sm.apRacerUnlocks & RacerUnlocks::FudSang) != 0);
 	}
 
-	SECTION("GiveCourse") {
+	SECTION("Give Courses works") {
 		sm.GiveAmateurCourse();
 		REQUIRE(save.amateurUnlocks == 0b00000011);
 
