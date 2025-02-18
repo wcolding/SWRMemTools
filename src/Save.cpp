@@ -6,6 +6,10 @@ SaveManager::SaveManager(SWR_SaveData* saveData) {
     _saveData = saveData;
 }
 
+bool SaveManager::isSaveReady() {
+    return _saveData != nullptr;
+}
+
 void SaveManager::InitializeSaveData() {
     _saveData->racesCompleted = 0;
     _saveData->amateurUnlocks = 1;

@@ -91,6 +91,8 @@ public:
     void GiveGalacticCourse();
     void GiveInvitationalCourse();
 
+    bool isSaveReady();
+
     RacerUnlocks apRacerUnlocks = RacerUnlocks::None;
     
 private:

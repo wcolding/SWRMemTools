@@ -7,6 +7,12 @@ TEST_CASE("SaveManager functions work") {
 	SaveManager sm(&save);
 	sm.InitializeSaveData();
 
+	SECTION("Can check if save is ready") {
+		SaveManager nullSaveManager(nullptr);
+		REQUIRE(nullSaveManager.isSaveReady() == false);
+		REQUIRE(sm.isSaveReady() == true);
+	}
+
 	SECTION("Initialize function works") {
 		REQUIRE(save.amateurUnlocks == 1);
 		REQUIRE(save.semiproUnlocks == 0);
