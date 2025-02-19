@@ -71,24 +71,24 @@ TEST_CASE("SaveManager functions work") {
 
 		save.tractionHealth = 0x10;
 		sm.GiveTractionPart(8);
-		REQUIRE(save.tractionLevel == 6);
+		REQUIRE(save.tractionLevel == 5);
 		REQUIRE(save.tractionHealth == static_cast<char>(0xFF));
 		
 		sm.GiveTractionPart(2);
-		REQUIRE(save.tractionLevel == 6);
+		REQUIRE(save.tractionLevel == 5);
 
 		sm.GiveTurningPart(1);
 		sm.GiveAccelerationPart(2);
 		sm.GiveTopSpeedPart(3);
 		sm.GiveAirbrakePart(4);
 		sm.GiveCoolingPart(5);
-		sm.GiveRepairPart(6);
+		sm.GiveRepairPart(1);
 
 		REQUIRE(save.turningLevel == 1);
 		REQUIRE(save.accelerationLevel == 2);
 		REQUIRE(save.topSpeedLevel == 3);
 		REQUIRE(save.airbrakeLevel == 4);
 		REQUIRE(save.coolingLevel == 5);
-		REQUIRE(save.repairLevel == 6);
+		REQUIRE(save.repairLevel == 1);
 	}
 }

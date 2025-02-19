@@ -84,7 +84,7 @@ bool GivePart(char& part, int level) {
         level = part + 1;
     }
     
-    level = std::clamp(level, 0, 6);
+    level = std::clamp(level, 0, 5);
     if (part < level) {
         part = level;
         return true;
