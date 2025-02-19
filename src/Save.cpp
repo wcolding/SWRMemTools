@@ -4,7 +4,7 @@
 #include <algorithm>
 
 namespace SWRMemTools {
-    SaveManager::SaveManager(SWR_SaveData* saveData) {
+    SaveManager::SaveManager(SaveData* saveData) {
         _saveData = saveData;
     }
 

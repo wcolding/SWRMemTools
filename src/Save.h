@@ -3,7 +3,7 @@
 #pragma pack(1)
 
 namespace SWRMemTools {
-    struct SWR_SaveData {
+    struct SaveData {
     public:
         char profileName[0x14];    // shortened from vanilla game to 16 characters + null + padding
         int racesCompleted;
@@ -45,7 +45,7 @@ namespace SWRMemTools {
     private:
         char pad;
     }; 
-    static_assert(sizeof(SWR_SaveData) == 0x50, "RacerSaveData resized!");
+    static_assert(sizeof(SaveData) == 0x50, "SaveData resized!");
 
     #pragma pack(pop)
 
@@ -82,7 +82,7 @@ namespace SWRMemTools {
 
     class SaveManager {
     public:
-        SaveManager(SWR_SaveData* saveData);
+        SaveManager(SaveData* saveData);
         void InitializeSaveData();
         void GiveMoney(int amount);
         void GivePitDroid();
@@ -104,7 +104,7 @@ namespace SWRMemTools {
         RacerUnlocks apRacerUnlocks = RacerUnlocks::None;
         
     private:
-        SWR_SaveData* _saveData;
+        SaveData* _saveData;
 
         int amateurCoursesReceived = 1;
         int semiproCoursesReceived = 0;
