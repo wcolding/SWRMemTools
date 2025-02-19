@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "../src/Save.h"
+#include "Save.h"
 
 using namespace SWRMemTools;
 

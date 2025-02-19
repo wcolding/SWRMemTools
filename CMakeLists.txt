@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.31)
 project(SWRMemTools VERSION 1.0.0)
 
 add_library(SWRMemTools 
-    src/Save.h
     src/Save.cpp
 )
+target_include_directories(SWRMemTools PRIVATE include)
 
 Include(FetchContent)
 
@@ -20,6 +20,7 @@ add_executable(tests
     #tests/test_32bit.cpp    
     tests/test_Save.cpp
 )
+target_include_directories(tests PRIVATE include)
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(tests PRIVATE SWRMemTools)
