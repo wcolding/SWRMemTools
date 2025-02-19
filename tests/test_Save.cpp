@@ -2,6 +2,8 @@
 
 #include "../src/Save.h"
 
+using namespace SWRMemTools;
+
 TEST_CASE("SaveManager functions work") {
 	SWR_SaveData save;
 	SaveManager sm(&save);
