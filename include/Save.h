@@ -49,7 +49,7 @@ namespace SWRMemTools {
 
     #pragma pack(pop)
 
-    enum RacerUnlocks : int {
+    enum class RacerUnlocks : int {
         None            = 0x00000000,
         AnakinSkywalker = 0x00000001,
         TeemtoPagalies  = 0x00000002,
@@ -78,6 +78,18 @@ namespace SWRMemTools {
 
     inline RacerUnlocks operator|=(RacerUnlocks& a, RacerUnlocks b) {
         return a = static_cast<RacerUnlocks>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    inline RacerUnlocks operator&(RacerUnlocks a, RacerUnlocks b) {
+        return static_cast<RacerUnlocks>(static_cast<int>(a) & static_cast<int>(b));
+    }
+
+    inline bool operator==(RacerUnlocks a, int b) {
+        return static_cast<int>(a) == b;
+    }
+
+    inline bool operator!=(RacerUnlocks a, int b) {
+        return static_cast<int>(a) != b;
     }
 
     class SaveManager {
