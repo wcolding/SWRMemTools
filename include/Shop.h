@@ -1,4 +1,5 @@
 #pragma once
+#include "Models.h"
 
 namespace SWRMemTools {
 
@@ -40,6 +41,7 @@ namespace SWRMemTools {
     class ShopManager {
     public:
         ShopManager(Shop* shop);
+        void SetModel(int index, ShopModel model);
 
     private:
         Shop* _shop;

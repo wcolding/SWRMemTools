@@ -9,4 +9,11 @@ namespace SWRMemTools{
             _shop->entries[i * 6].requiredRaces = ShopItemFlags::Hidden | ShopItemFlags::Purchased;
         }
     }
+
+    void ShopManager::SetModel(int index, ShopModel model) {
+        if ((index < 0) || (index > 41))
+            return;
+
+        _shop->entries[index].modelId = static_cast<int>(model);
+    }
 }
