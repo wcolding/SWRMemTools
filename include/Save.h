@@ -2,6 +2,14 @@
 #pragma pack(push)
 #pragma pack(1)
 
+#define TRACTION_PART 0
+#define TURNING_PART 1
+#define ACCELERATION_PART 2
+#define TOP_SPEED_PART 3
+#define AIRBRAKE_PART 4
+#define COOLING_PART 5
+#define REPAIR_PART 6
+
 namespace SWRMemTools {
     struct SaveData {
     public:
@@ -110,6 +118,7 @@ namespace SWRMemTools {
         void GiveAirbrakePart(int level = -1);
         void GiveCoolingPart(int level = -1);
         void GiveRepairPart(int level = -1);
+        int GetPartLevel(int part);
 
         bool isSaveReady();
 

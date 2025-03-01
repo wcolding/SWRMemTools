@@ -92,5 +92,12 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(save.airbrakeLevel == 4);
 		REQUIRE(save.coolingLevel == 5);
 		REQUIRE(save.repairLevel == 1);
+
+		REQUIRE(sm.GetPartLevel(AIRBRAKE_PART) == 4);
+		REQUIRE(sm.GetPartLevel(COOLING_PART) == 5);
+		sm.GiveAirbrakePart();
+		REQUIRE(sm.GetPartLevel(AIRBRAKE_PART) == 5);
+
+		REQUIRE(sm.GetPartLevel(10) == -1);
 	}
 }

@@ -135,4 +135,12 @@ namespace SWRMemTools {
             _saveData->repairHealth = 0xFF;
         }
     }
+
+    int SaveManager::GetPartLevel(int part) {
+        if ((part < TRACTION_PART) || (part > REPAIR_PART))
+            return -1;
+
+        auto ptr = &_saveData->tractionLevel + part;
+        return static_cast<int>(*ptr);
+    }
 }
