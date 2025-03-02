@@ -42,6 +42,7 @@ namespace SWRMemTools {
     public:
         ShopManager(Shop* shop);
         void SetModel(int index, ShopModel model);
+        void SetProgressiveItemModel(int index, int partType, int partLevel);
 
     private:
         Shop* _shop;

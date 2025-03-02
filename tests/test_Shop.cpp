@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "Shop.h"
+#include "Save.h"
 
 using namespace SWRMemTools;
 
@@ -17,5 +18,23 @@ TEST_CASE("ShopManager functions work") {
          REQUIRE(shop.entries[2].modelId == ShopModel::Watto);
          sm.SetModel(2, ShopModel::Dewback);
          REQUIRE(shop.entries[2].modelId == ShopModel::Dewback);
+    }
+
+    SECTION("Progressive functions work") {
+        SaveData save;
+        SaveManager svMan(&save);
+
+        svMan.InitializeSaveData();
+        REQUIRE(svMan.GetPartLevel(TRACTION_PART) == 0);
+        sm.SetProgressiveItemModel(2, TRACTION_PART, svMan.GetPartLevel(TRACTION_PART));
+        REQUIRE(shop.entries[2].modelId == ShopModel::Traction2);
+        
+        svMan.GiveTractionPart();
+        sm.SetProgressiveItemModel(2, TRACTION_PART, svMan.GetPartLevel(TRACTION_PART));
+        REQUIRE(shop.entries[2].modelId == ShopModel::Traction3);
+
+        svMan.GiveCoolingPart(4);
+        sm.SetProgressiveItemModel(3, COOLING_PART, svMan.GetPartLevel(COOLING_PART));
+        REQUIRE(shop.entries[3].modelId == ShopModel::Cooling6);
     }
 }
