@@ -13,6 +13,9 @@ namespace SWRMemTools {
     }
 
     void SaveManager::InitializeSaveData() {
+        if (!isSaveReady())
+            return;
+            
         _saveData->racesCompleted = 0;
         _saveData->amateurUnlocks = 1;
         _saveData->semiproUnlocks = 0;
