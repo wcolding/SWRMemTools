@@ -37,4 +37,10 @@ TEST_CASE("ShopManager functions work") {
         sm.SetProgressiveItemModel(3, COOLING_PART, svMan.GetPartLevel(COOLING_PART));
         REQUIRE(shop.entries[3].modelId == ShopModel::Cooling6);
     }
+
+    SECTION("SetItem functions work") {
+        sm.SetAPItem(12);
+        REQUIRE(shop.entries[12].itemType == 7);
+        REQUIRE(shop.entries[12].modelId == ShopModel::Jabba);
+    }
 }

@@ -38,4 +38,13 @@ namespace SWRMemTools{
 
         SetModel(index, progressiveItemModels[partType][partLevel]);
     }
+
+    void ShopManager::SetAPItem(int index) {
+        if ((index < 0) || (index > 41))
+            return;
+
+        _shop->entries[index].itemType = 7;
+        _shop->entries[index].seriesId = 0;
+        SetModel(index, ShopModel::Jabba);
+    }
 }
