@@ -146,4 +146,17 @@ namespace SWRMemTools {
         auto ptr = &_saveData->tractionLevel + part;
         return static_cast<int>(*ptr);
     }
+
+
+    std::vector<RacerUnlocks> SaveManager::GetRacerUnlockLocations() {
+        std::vector<RacerUnlocks> checks;
+        
+        for (int i = 1; i < static_cast<int>(RacerUnlocks::BullseyeNavior); i <<= 1) {
+            if (_saveData->racerUnlocks & i) {
+                checks.push_back(static_cast<RacerUnlocks>(i));
+            }
+        }
+        
+        return checks;
+    }
 }

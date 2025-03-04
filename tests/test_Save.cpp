@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "Save.h"
+#include <algorithm>
 
 using namespace SWRMemTools;
 
@@ -99,5 +100,25 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(sm.GetPartLevel(AIRBRAKE_PART) == 5);
 
 		REQUIRE(sm.GetPartLevel(10) == -1);
+	}
+
+	SECTION("Get Racer Unlock Locations") {
+		auto checks = sm.GetRacerUnlockLocations();
+		REQUIRE(checks.empty() == true);
+
+		save.racerUnlocks |= RacerUnlocks::BenQuadrinaros;
+		checks = sm.GetRacerUnlockLocations();
+		REQUIRE(checks.size() == 1);
+
+		save.racerUnlocks |= RacerUnlocks::NevaKee;
+		checks = sm.GetRacerUnlockLocations();
+		REQUIRE(checks.size() == 2);
+
+		auto res = std::find(checks.begin(), checks.end(), RacerUnlocks::BenQuadrinaros);
+		REQUIRE_FALSE(res == checks.end());
+		res = std::find(checks.begin(), checks.end(), RacerUnlocks::NevaKee);
+		REQUIRE_FALSE(res == checks.end());
+		res = std::find(checks.begin(), checks.end(), RacerUnlocks::Gasgano);
+		REQUIRE(res == checks.end());
 	}
 }

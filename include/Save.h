@@ -1,4 +1,7 @@
 #pragma once
+
+#include <vector>
+
 #pragma pack(push)
 #pragma pack(1)
 
@@ -30,7 +33,7 @@ namespace SWRMemTools {
     private:
         char unk_02[0x02];
     public:
-        unsigned int racerUnlocks;
+        int racerUnlocks;
         int money;
         int cutscenesBitfield;
         char pitDroids;
@@ -88,6 +91,10 @@ namespace SWRMemTools {
         return a = static_cast<RacerUnlocks>(static_cast<int>(a) | static_cast<int>(b));
     }
 
+    inline int operator|=(int& a, RacerUnlocks b) {
+        return a = a | static_cast<int>(b);
+    }
+
     inline RacerUnlocks operator&(RacerUnlocks a, RacerUnlocks b) {
         return static_cast<RacerUnlocks>(static_cast<int>(a) & static_cast<int>(b));
     }
@@ -121,6 +128,8 @@ namespace SWRMemTools {
         int GetPartLevel(int part);
 
         bool isSaveReady();
+
+        std::vector<RacerUnlocks> GetRacerUnlockLocations();
 
         RacerUnlocks apRacerUnlocks = RacerUnlocks::None;
         
