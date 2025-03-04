@@ -120,5 +120,11 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE_FALSE(res == checks.end());
 		res = std::find(checks.begin(), checks.end(), RacerUnlocks::Gasgano);
 		REQUIRE(res == checks.end());
+
+		save.racerUnlocks |= RacerUnlocks::BullseyeNavior;
+		checks = sm.GetRacerUnlockLocations();
+		REQUIRE(checks.size() == 3);
+		res = std::find(checks.begin(), checks.end(), RacerUnlocks::BullseyeNavior);
+		REQUIRE_FALSE(res == checks.end());
 	}
 }
