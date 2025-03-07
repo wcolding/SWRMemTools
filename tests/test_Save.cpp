@@ -73,9 +73,10 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(save.tractionLevel == 4);
 
 		save.tractionHealth = 0x10;
+		REQUIRE(sm.GetPartHealth(TRACTION_PART) == static_cast<char>(0x10));
 		sm.GiveTractionPart(8);
 		REQUIRE(save.tractionLevel == 5);
-		REQUIRE(save.tractionHealth == static_cast<char>(0xFF));
+		REQUIRE(sm.GetPartHealth(TRACTION_PART) == static_cast<char>(0xFF));
 		
 		sm.GiveTractionPart(2);
 		REQUIRE(save.tractionLevel == 5);

@@ -126,6 +126,7 @@ namespace SWRMemTools {
         void GiveCoolingPart(int level = -1);
         void GiveRepairPart(int level = -1);
         int GetPartLevel(int part);
+        int GetPartHealth(int part);
 
         bool isSaveReady();
 

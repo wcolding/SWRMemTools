@@ -147,6 +147,14 @@ namespace SWRMemTools {
         return static_cast<int>(*ptr);
     }
 
+    int SaveManager::GetPartHealth(int part) {
+        if ((part < TRACTION_PART) || (part > REPAIR_PART))
+            return -1;
+
+        auto ptr = &_saveData->tractionHealth + part;
+        return static_cast<int>(*ptr);
+    }
+
     std::vector<RacerUnlocks> SaveManager::GetRacerUnlockLocations() {
         std::vector<RacerUnlocks> checks;
         
