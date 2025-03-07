@@ -147,6 +147,14 @@ namespace SWRMemTools {
         return static_cast<int>(*ptr);
     }
 
+    int SaveManager::GetCircuitUnlocks(int circuit) {
+        if ((circuit < AMATEUR_CIRCUIT) || (circuit > INVITATIONAL_CIRCUIT))
+            return 0;
+
+        auto ptr = &_saveData->amateurUnlocks + circuit;
+        return static_cast<int>(*ptr);
+    }
+
     int SaveManager::GetPartHealth(int part) {
         if ((part < TRACTION_PART) || (part > REPAIR_PART))
             return -1;

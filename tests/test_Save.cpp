@@ -47,19 +47,19 @@ TEST_CASE("SaveManager functions work") {
 
 	SECTION("Give Courses works") {
 		sm.GiveAmateurCourse();
-		REQUIRE(save.amateurUnlocks == 0b00000011);
+		REQUIRE(sm.GetCircuitUnlocks(AMATEUR_CIRCUIT) == 0b00000011);
 
 		sm.GiveSemiproCourse();
 		sm.GiveSemiproCourse();
-		REQUIRE(save.semiproUnlocks == 0b00000011);
+		REQUIRE(sm.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000011);
 
 		sm.GiveGalacticCourse();
 		sm.GiveGalacticCourse();
 		sm.GiveGalacticCourse();
-		REQUIRE(save.galacticUnlocks == 0b00000111);
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000111);
 
 		sm.GiveInvitationalCourse();
-		REQUIRE(save.invitationalUnlocks == 0b00000001);
+		REQUIRE(sm.GetCircuitUnlocks(INVITATIONAL_CIRCUIT) == 0b00000001);
 
 		REQUIRE(save.galacticUnlocks == 0b00000111);
 	}

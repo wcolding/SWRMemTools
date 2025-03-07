@@ -13,6 +13,11 @@
 #define COOLING_PART 5
 #define REPAIR_PART 6
 
+#define AMATEUR_CIRCUIT 0
+#define SEMIPRO_CIRCUIT 1
+#define GALACTIC_CIRCUIT 2
+#define INVITATIONAL_CIRCUIT 3
+
 namespace SWRMemTools {
     struct SaveData {
     public:
@@ -127,6 +132,7 @@ namespace SWRMemTools {
         void GiveRepairPart(int level = -1);
         int GetPartLevel(int part);
         int GetPartHealth(int part);
+        int GetCircuitUnlocks(int circuit);
 
         bool isSaveReady();
 
