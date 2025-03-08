@@ -12,6 +12,7 @@
 #define AIRBRAKE_PART 4
 #define COOLING_PART 5
 #define REPAIR_PART 6
+#define PROGRESSIVE_PART -1
 
 #define AMATEUR_CIRCUIT 0
 #define SEMIPRO_CIRCUIT 1
@@ -123,13 +124,13 @@ namespace SWRMemTools {
         void GiveSemiproCourse();
         void GiveGalacticCourse();
         void GiveInvitationalCourse();
-        void GiveTractionPart(int level = -1);
-        void GiveTurningPart(int level = -1);
-        void GiveAccelerationPart(int level = -1);
-        void GiveTopSpeedPart(int level = -1);
-        void GiveAirbrakePart(int level = -1);
-        void GiveCoolingPart(int level = -1);
-        void GiveRepairPart(int level = -1);
+        void GiveTractionPart(int level = PROGRESSIVE_PART);
+        void GiveTurningPart(int level = PROGRESSIVE_PART);
+        void GiveAccelerationPart(int level = PROGRESSIVE_PART);
+        void GiveTopSpeedPart(int level = PROGRESSIVE_PART);
+        void GiveAirbrakePart(int level = PROGRESSIVE_PART);
+        void GiveCoolingPart(int level = PROGRESSIVE_PART);
+        void GiveRepairPart(int level = PROGRESSIVE_PART);
         int GetPartLevel(int part);
         int GetPartHealth(int part);
         int GetCircuitUnlocks(int circuit);

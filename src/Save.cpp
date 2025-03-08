@@ -84,7 +84,7 @@ namespace SWRMemTools {
     }
 
     bool GivePart(char& part, int level) {
-        if (level == -1) {
+        if (level == PROGRESSIVE_PART) {
             level = part + 1;
         }
         
