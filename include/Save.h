@@ -9,7 +9,7 @@
 #define TURNING_PART 1
 #define ACCELERATION_PART 2
 #define TOP_SPEED_PART 3
-#define AIRBRAKE_PART 4
+#define AIR_BRAKE_PART 4
 #define COOLING_PART 5
 #define REPAIR_PART 6
 #define PROGRESSIVE_PART -1
