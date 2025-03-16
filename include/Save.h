@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #pragma pack(push)
 #pragma pack(1)
@@ -134,6 +135,8 @@ namespace SWRMemTools {
         int GetPartLevel(int part);
         int GetPartHealth(int part);
         int GetCircuitUnlocks(int circuit);
+        void SetPartialSeed(std::string fullSeed);
+        unsigned long long GetPartialSeed();
 
         bool isSaveReady();
 

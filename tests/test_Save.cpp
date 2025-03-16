@@ -128,4 +128,12 @@ TEST_CASE("SaveManager functions work") {
 		res = std::find(checks.begin(), checks.end(), RacerUnlocks::BullseyeNavior);
 		REQUIRE_FALSE(res == checks.end());
 	}
+
+	SECTION("Set/Get Partial Seed") {
+		sm.SetPartialSeed("0123456789101112");
+		REQUIRE(sm.GetPartialSeed() == 1234567);
+
+		sm.SetPartialSeed("7777444499993333");
+		REQUIRE(sm.GetPartialSeed() == 77774444);
+	}
 }

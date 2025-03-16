@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <cstdlib>
 
 namespace SWRMemTools {
     SaveManager::SaveManager(SaveData* saveData) {
@@ -173,5 +174,14 @@ namespace SWRMemTools {
         }
         
         return checks;
+    }
+
+    void SaveManager::SetPartialSeed(std::string fullSeed) {
+        std::string partialStr = fullSeed.substr(0, 8);
+        _saveData->apPartialSeed = static_cast<unsigned long long>(strtoll(partialStr.c_str(), nullptr, 10));
+    }
+
+    unsigned long long SaveManager::GetPartialSeed() {
+        return _saveData->apPartialSeed;
     }
 }
