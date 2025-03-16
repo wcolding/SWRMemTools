@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "Save.h"
+#include "Utils.h"
 #include <algorithm>
 
 using namespace SWRMemTools;
@@ -130,10 +131,10 @@ TEST_CASE("SaveManager functions work") {
 	}
 
 	SECTION("Set/Get Partial Seed") {
-		sm.SetPartialSeed("0123456789101112");
+		sm.SetPartialSeed(ConvertToPartialSeed("0123456789101112"));
 		REQUIRE(sm.GetPartialSeed() == 1234567);
 
-		sm.SetPartialSeed("7777444499993333");
+		sm.SetPartialSeed(ConvertToPartialSeed("7777444499993333"));
 		REQUIRE(sm.GetPartialSeed() == 77774444);
 	}
 }

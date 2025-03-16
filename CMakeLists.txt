@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 add_library(SWRMemTools STATIC
     src/Save.cpp
     src/Shop.cpp
+    src/Utils.cpp
 )
 target_include_directories(SWRMemTools PRIVATE include)
 
@@ -21,6 +22,7 @@ FetchContent_MakeAvailable(Catch2)
 
 add_executable(tests 
     #tests/test_32bit.cpp    
+    tests/test_Utils.cpp
     tests/test_Save.cpp
     tests/test_Shop.cpp
 )

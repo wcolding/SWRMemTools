@@ -135,7 +135,7 @@ namespace SWRMemTools {
         int GetPartLevel(int part);
         int GetPartHealth(int part);
         int GetCircuitUnlocks(int circuit);
-        void SetPartialSeed(std::string fullSeed);
+        void SetPartialSeed(unsigned long long partialSeed);
         unsigned long long GetPartialSeed();
 
         bool isSaveReady();
