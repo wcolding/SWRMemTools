@@ -16,7 +16,7 @@ namespace SWRMemTools {
         if (!isSaveReady())
             return;
             
-        _saveData->racesCompleted = 0;
+        _saveData->coursesCompleted = 0;
         _saveData->amateurUnlocks = 1;
         _saveData->semiproUnlocks = 0;
         _saveData->galacticUnlocks = 0;
@@ -185,7 +185,7 @@ namespace SWRMemTools {
 
     void SaveManager::SetCourseAsCompleted(int index) {
         int flag = 1 << index;
-        _saveData->racesCompleted |= flag;
+        _saveData->coursesCompleted |= flag;
     }
 
     int SaveManager::GetCompletedCourseCount() {
@@ -195,7 +195,7 @@ namespace SWRMemTools {
         for (int i = 0; i < 25; i++)
         {
             flag = 1 << i;
-            if ((_saveData->racesCompleted & flag) != 0)
+            if ((_saveData->coursesCompleted & flag) != 0)
                 count++;
         }
 

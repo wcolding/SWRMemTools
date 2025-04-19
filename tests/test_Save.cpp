@@ -139,12 +139,12 @@ TEST_CASE("SaveManager functions work") {
 	}
 
 	SECTION("Check completed courses") {
-		save.racesCompleted = 0x01;
+		save.coursesCompleted = 0x01;
 		REQUIRE(sm.GetCompletedCourseCount() == 1);
 		sm.SetCourseAsCompleted(0);
 		REQUIRE(sm.GetCompletedCourseCount() == 1);
 		sm.SetCourseAsCompleted(2);
-		REQUIRE(save.racesCompleted == 0x05);
+		REQUIRE(save.coursesCompleted == 0x05);
 		REQUIRE(sm.GetCompletedCourseCount() == 2);
 	}
 }

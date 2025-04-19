@@ -24,7 +24,7 @@ namespace SWRMemTools {
     struct SaveData {
     public:
         char profileName[0x14];    // shortened from vanilla game to 16 characters + null + padding
-        int racesCompleted;
+        int coursesCompleted;
         unsigned long long apPartialSeed;
     private:
         char unk_00[0x02];
