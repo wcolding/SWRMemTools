@@ -143,6 +143,7 @@ namespace SWRMemTools {
         std::vector<RacerUnlocks> GetRacerUnlockLocations();
 
         RacerUnlocks apRacerUnlocks = RacerUnlocks::None;
+        int pitDroidChecksCompleted = 0;
         
     private:
         SaveData* _saveData;
