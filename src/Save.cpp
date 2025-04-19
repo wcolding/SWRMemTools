@@ -182,4 +182,23 @@ namespace SWRMemTools {
     unsigned long long SaveManager::GetPartialSeed() {
         return _saveData->apPartialSeed;
     }
+
+    void SaveManager::SetCourseAsCompleted(int index) {
+        int flag = 1 << index;
+        _saveData->racesCompleted |= flag;
+    }
+
+    int SaveManager::GetCompletedCourseCount() {
+        int count = 0;
+        int flag;
+
+        for (int i = 0; i < 25; i++)
+        {
+            flag = 1 << i;
+            if ((_saveData->racesCompleted & flag) != 0)
+                count++;
+        }
+
+        return count;
+    }
 }

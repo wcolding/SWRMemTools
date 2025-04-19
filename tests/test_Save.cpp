@@ -137,4 +137,14 @@ TEST_CASE("SaveManager functions work") {
 		sm.SetPartialSeed(ConvertToPartialSeed("7777444499993333"));
 		REQUIRE(sm.GetPartialSeed() == 77774444);
 	}
+
+	SECTION("Check completed courses") {
+		save.racesCompleted = 0x01;
+		REQUIRE(sm.GetCompletedCourseCount() == 1);
+		sm.SetCourseAsCompleted(0);
+		REQUIRE(sm.GetCompletedCourseCount() == 1);
+		sm.SetCourseAsCompleted(2);
+		REQUIRE(save.racesCompleted == 0x05);
+		REQUIRE(sm.GetCompletedCourseCount() == 2);
+	}
 }

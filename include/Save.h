@@ -137,6 +137,8 @@ namespace SWRMemTools {
         int GetCircuitUnlocks(int circuit);
         void SetPartialSeed(unsigned long long partialSeed);
         unsigned long long GetPartialSeed();
+        void SetCourseAsCompleted(int index);
+        int GetCompletedCourseCount();
 
         bool isSaveReady();
 
