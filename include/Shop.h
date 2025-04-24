@@ -8,7 +8,7 @@ namespace SWRMemTools {
     struct ShopEntry {
         char globalId;
         char seriesId;
-        char requiredRaces;
+        char requiredRaces;     // Randomizer uses this byte for ShopItemFlags
         char itemType;
         int cost;
         int modelId;
@@ -44,6 +44,7 @@ namespace SWRMemTools {
         void SetModel(int index, ShopModel model);
         void SetProgressiveItemModel(int index, int partType, int partLevel);
         void SetAPItem(int index);
+        int GetAvailableShopChecks(int coursesCompleted);
         
     private:
         Shop* _shop;

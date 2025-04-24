@@ -47,4 +47,19 @@ namespace SWRMemTools{
         _shop->entries[index].seriesId = 0;
         SetModel(index, ShopModel::Jabba);
     }
+
+    int ShopManager::GetAvailableShopChecks(int coursesCompleted) {
+        int count = 0;
+
+        for (auto entry : _shop->entries) {
+            if ((entry.requiredRaces & ShopItemFlags::Purchased) == 0) {
+                int maskedrequiredRaces = entry.requiredRaces & 0x1F;
+                if (maskedrequiredRaces <= coursesCompleted) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
 }
