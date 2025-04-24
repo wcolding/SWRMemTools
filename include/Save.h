@@ -138,6 +138,7 @@ namespace SWRMemTools {
         void SetPartialSeed(unsigned long long partialSeed);
         unsigned long long GetPartialSeed();
         void SetCourseAsCompleted(int index);
+        int GetCompletedCourseBitfield();
         int GetCompletedCourseCount();
 
         bool isSaveReady();

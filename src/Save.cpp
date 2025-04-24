@@ -188,6 +188,10 @@ namespace SWRMemTools {
         _saveData->coursesCompleted |= flag;
     }
 
+    int SaveManager::GetCompletedCourseBitfield() {
+        return _saveData->coursesCompleted;
+    }
+
     int SaveManager::GetCompletedCourseCount() {
         int count = 0;
         int flag;
