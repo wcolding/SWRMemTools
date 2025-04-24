@@ -63,7 +63,7 @@ namespace SWRMemTools {
     private:
         char pad;
     }; 
-    static_assert(sizeof(SaveData) == 0x50, "SaveData resized!");
+    static_assert(sizeof(SWRMemTools::SaveData) == 0x50, "SaveData resized!");
 
     #pragma pack(pop)
 
