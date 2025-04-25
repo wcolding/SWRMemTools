@@ -8,7 +8,8 @@ using namespace SWRMemTools;
 
 TEST_CASE("SaveManager functions work") {
 	SaveData save;
-	SaveManager sm(&save);
+	SaveData* savePtr = &save;
+	SaveManager sm(&savePtr);
 	sm.InitializeSaveData();
 
 	SECTION("Can check if save is ready") {

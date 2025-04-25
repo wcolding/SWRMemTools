@@ -22,7 +22,8 @@ TEST_CASE("ShopManager functions work") {
 
     SECTION("Progressive functions work") {
         SaveData save;
-        SaveManager svMan(&save);
+        SaveData* savePtr = &save;
+        SaveManager svMan(&savePtr);
 
         svMan.InitializeSaveData();
         REQUIRE(svMan.GetPartLevel(TRACTION_PART) == 0);

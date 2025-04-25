@@ -4,12 +4,17 @@
 #include <algorithm>
 
 namespace SWRMemTools {
-    SaveManager::SaveManager(SaveData* saveData) {
-        _saveData = saveData;
+    SaveManager::SaveManager(SaveData** saveDataPtr) {
+        _saveDataPtr = saveDataPtr;
+        _saveData = nullptr;
     }
 
     bool SaveManager::isSaveReady() {
-        return _saveData != nullptr;
+        if (_saveDataPtr == nullptr)
+            return false;
+
+        _saveData = *_saveDataPtr;
+        return true;
     }
 
     void SaveManager::InitializeSaveData() {

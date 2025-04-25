@@ -116,7 +116,7 @@ namespace SWRMemTools {
 
     class SaveManager {
     public:
-        SaveManager(SaveData* saveData);
+        SaveManager(SaveData** saveDataPtr);
         void InitializeSaveData();
         void GiveMoney(int amount);
         void GivePitDroid();
@@ -149,6 +149,7 @@ namespace SWRMemTools {
         int pitDroidChecksCompleted = 0;
         
     private:
+        SaveData** _saveDataPtr;
         SaveData* _saveData;
 
         int amateurCoursesReceived = 1;
