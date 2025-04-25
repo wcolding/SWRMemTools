@@ -66,6 +66,16 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(save.galacticUnlocks == 0b00000111);
 	}
 
+	SECTION("Calculate for Progressive Circuit Pass") {
+		REQUIRE(sm.GetFirstLockedCircuit() == SEMIPRO_CIRCUIT);
+		sm.GiveSemiproCourse();
+		REQUIRE(sm.GetFirstLockedCircuit() == GALACTIC_CIRCUIT);
+		sm.GiveGalacticCourse();
+		REQUIRE(sm.GetFirstLockedCircuit() == INVITATIONAL_CIRCUIT);
+		sm.GiveInvitationalCourse();
+		REQUIRE(sm.GetFirstLockedCircuit() == NO_CIRCUIT);
+	}
+
 	SECTION("Give Parts") {
 		sm.GiveTractionPart();
 		REQUIRE(save.tractionLevel == 1);

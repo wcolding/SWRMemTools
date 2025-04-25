@@ -19,6 +19,7 @@
 #define SEMIPRO_CIRCUIT 1
 #define GALACTIC_CIRCUIT 2
 #define INVITATIONAL_CIRCUIT 3
+#define NO_CIRCUIT -2
 
 namespace SWRMemTools {
     struct SaveData {
@@ -140,6 +141,7 @@ namespace SWRMemTools {
         void SetCourseAsCompleted(int index);
         int GetCompletedCourseBitfield();
         int GetCompletedCourseCount();
+        int GetFirstLockedCircuit();
 
         bool isSaveReady();
 

@@ -210,4 +210,14 @@ namespace SWRMemTools {
 
         return count;
     }
+
+    int SaveManager::GetFirstLockedCircuit() {
+        for (int i = 0; i < 4; i++) {
+            auto unlocksPtr = &_saveData->amateurUnlocks + i; 
+            if (*unlocksPtr == 0)
+                return i;
+        }
+
+        return NO_CIRCUIT;
+    }
 }
