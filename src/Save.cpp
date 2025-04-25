@@ -25,7 +25,7 @@ namespace SWRMemTools {
         _saveData->racerUnlocks = 0;
         _saveData->money = 3000;
         _saveData->cutscenesBitfield = 0xFFFFFFFF;
-        _saveData->pitDroids = 0;
+        _saveData->pitDroids = 1;
 
         _saveData->tractionLevel = 0;
         _saveData->turningLevel = 0;

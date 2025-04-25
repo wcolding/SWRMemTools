@@ -35,7 +35,7 @@ TEST_CASE("SaveManager functions work") {
 	SECTION("GivePitDroid works") {
 		sm.GivePitDroid();
 		sm.GivePitDroid();
-		REQUIRE(save.pitDroids == 2);
+		REQUIRE(save.pitDroids == 3);
 	}
 
 	SECTION("Give Racer works") {
