@@ -23,7 +23,7 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(save.semiproUnlocks == 0);
 		REQUIRE(save.galacticUnlocks == 0);
 		REQUIRE(save.invitationalUnlocks == 0);
-		REQUIRE(save.money == 3000);
+		REQUIRE(save.money == 400);
 	}
 
 	SECTION("Reset function works") {
@@ -37,9 +37,9 @@ TEST_CASE("SaveManager functions work") {
 
 	SECTION("GiveMoney works") {
 		sm.GiveMoney(200);
-		REQUIRE(save.money == 3200);
+		REQUIRE(save.money == 600);
 		sm.GiveMoney(60);
-		REQUIRE(save.money == 3260);
+		REQUIRE(save.money == 660);
 	}
 
 	SECTION("GivePitDroid works") {

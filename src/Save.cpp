@@ -28,7 +28,7 @@ namespace SWRMemTools {
         _saveData->invitationalUnlocks = 0;
         _saveData->progressivePasses = 0;
         _saveData->racerUnlocks = 0;
-        _saveData->money = 3000;
+        _saveData->money = 400;
         _saveData->cutscenesBitfield = 0xFFFFFFFF;
         _saveData->pitDroids = 1;
 
