@@ -76,6 +76,23 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(sm.GetFirstLockedCircuit() == NO_CIRCUIT);
 	}
 
+	SECTION("Give Circuit Pass Works") {
+		REQUIRE(sm.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000000);
+		sm.GiveCircuitPass();
+		REQUIRE(sm.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000001);
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000000);
+
+		sm.GiveCircuitPass(SEMIPRO_CIRCUIT);
+		REQUIRE(sm.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000001);
+
+		sm.GiveCircuitPass(INVITATIONAL_CIRCUIT);
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000000);
+		REQUIRE(sm.GetCircuitUnlocks(INVITATIONAL_CIRCUIT) == 0b00000001);
+		
+		sm.GiveCircuitPass();
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000001);
+	}
+
 	SECTION("Give Parts") {
 		sm.GiveTractionPart();
 		REQUIRE(save.tractionLevel == 1);

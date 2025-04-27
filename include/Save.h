@@ -19,6 +19,7 @@
 #define SEMIPRO_CIRCUIT 1
 #define GALACTIC_CIRCUIT 2
 #define INVITATIONAL_CIRCUIT 3
+#define PROGRESSIVE_CIRCUIT -1
 #define NO_CIRCUIT -2
 
 namespace SWRMemTools {
@@ -126,6 +127,7 @@ namespace SWRMemTools {
         void GiveSemiproCourse();
         void GiveGalacticCourse();
         void GiveInvitationalCourse();
+        void GiveCircuitPass(int circuit = PROGRESSIVE_CIRCUIT);
         void GiveTractionPart(int level = PROGRESSIVE_PART);
         void GiveTurningPart(int level = PROGRESSIVE_PART);
         void GiveAccelerationPart(int level = PROGRESSIVE_PART);

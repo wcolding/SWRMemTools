@@ -88,6 +88,35 @@ namespace SWRMemTools {
         RecalculateCourseUnlockFlags();
     }
 
+
+    void SaveManager::GiveCircuitPass(int circuit) {
+        int next;
+        switch (circuit) {
+        case AMATEUR_CIRCUIT:
+            if (_saveData->amateurUnlocks == 0)
+                GiveAmateurCourse();
+            break;
+        case SEMIPRO_CIRCUIT:
+            if (_saveData->semiproUnlocks == 0)
+                GiveSemiproCourse();
+            break;
+        case GALACTIC_CIRCUIT:
+            if (_saveData->galacticUnlocks == 0)
+                GiveGalacticCourse();
+            break;
+        case INVITATIONAL_CIRCUIT:
+            if (_saveData->invitationalUnlocks == 0)
+                GiveInvitationalCourse();
+            break;
+        case PROGRESSIVE_CIRCUIT:
+            next = GetFirstLockedCircuit();
+            GiveCircuitPass(next);
+            break;
+        default:
+            break;
+        }
+    }
+
     bool GivePart(char& part, int level) {
         if (level == PROGRESSIVE_PART) {
             level = part + 1;
