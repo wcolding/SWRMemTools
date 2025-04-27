@@ -62,10 +62,10 @@ namespace SWRMemTools {
     }
 
     void SaveManager::RecalculateCourseUnlockFlags() {
-        _saveData->amateurUnlocks = pow(2, amateurCoursesReceived) - 1;
-        _saveData->semiproUnlocks = pow(2, semiproCoursesReceived) - 1;
-        _saveData->galacticUnlocks = pow(2, galacticCoursesReceived) - 1;
-        _saveData->invitationalUnlocks = pow(2, invitationalCoursesReceived) - 1;
+        _saveData->amateurUnlocks |= static_cast<char>(pow(2, amateurCoursesReceived) - 1);
+        _saveData->semiproUnlocks |= static_cast<char>(pow(2, semiproCoursesReceived) - 1);
+        _saveData->galacticUnlocks |= static_cast<char>(pow(2, galacticCoursesReceived) - 1);
+        _saveData->invitationalUnlocks |= static_cast<char>(pow(2, invitationalCoursesReceived) - 1);
     }
 
     void SaveManager::GiveAmateurCourse() {
