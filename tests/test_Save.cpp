@@ -26,6 +26,15 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(save.money == 3000);
 	}
 
+	SECTION("Reset function works") {
+		sm.GiveTractionPart();
+		sm.GiveGalacticCourse();
+		sm.ResetSaveData();
+
+		REQUIRE(save.tractionLevel == 0);
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000001);
+	}
+
 	SECTION("GiveMoney works") {
 		sm.GiveMoney(200);
 		REQUIRE(save.money == 3200);

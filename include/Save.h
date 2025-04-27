@@ -120,6 +120,7 @@ namespace SWRMemTools {
     public:
         SaveManager(SaveData** saveDataPtr);
         void InitializeSaveData();
+        void ResetSaveData();
         void GiveMoney(int amount);
         void GivePitDroid();
         void GiveRacer(RacerUnlocks racer);

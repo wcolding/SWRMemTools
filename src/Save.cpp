@@ -48,6 +48,21 @@ namespace SWRMemTools {
         _saveData->coolingHealth = 0xFF;
         _saveData->repairHealth = 0xFF;
     }
+    
+    void SaveManager::ResetSaveData() {
+        if (!isSaveReady())
+            return;
+
+        _saveData->racerUnlocks = 0;
+
+        _saveData->tractionLevel = 0;
+        _saveData->turningLevel = 0;
+        _saveData->accelerationLevel = 0;
+        _saveData->topSpeedLevel = 0;
+        _saveData->airbrakeLevel = 0;
+        _saveData->coolingLevel = 0;
+        _saveData->repairLevel = 0;
+    }
 
     void SaveManager::GiveMoney(int amount) {
         _saveData->money += amount;
