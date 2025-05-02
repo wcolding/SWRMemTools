@@ -54,5 +54,10 @@ TEST_CASE("ShopManager functions work") {
 
         shop.entries[4].requiredRaces |= ShopItemFlags::Purchased;
         REQUIRE(sm.GetAvailableShopChecks(2) == 41);
+
+        shop.entries[0].requiredRaces = 0xC0;
+        REQUIRE(sm.GetAvailableShopChecks(2) == 40);
+        shop.entries[1].requiredRaces = 0xC0;
+        REQUIRE(sm.GetAvailableShopChecks(2) == 39);
     }
 }
