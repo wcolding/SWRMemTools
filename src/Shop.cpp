@@ -48,11 +48,19 @@ namespace SWRMemTools{
         SetModel(index, ShopModel::Jabba);
     }
 
+    bool isShopEntryPurchased(ShopEntry entry) {
+        return (entry.requiredRaces & ShopItemFlags::Purchased) != 0;
+    }
+
+    bool isShopEntryHidden(ShopEntry entry) {
+        return (entry.requiredRaces & ShopItemFlags::Hidden) != 0;
+    }
+
     int ShopManager::GetAvailableShopChecks(int coursesCompleted) {
         int count = 0;
 
         for (auto entry : _shop->entries) {
-            if ((entry.requiredRaces & ShopItemFlags::Purchased) == 0) {
+            if (!isShopEntryPurchased(entry) && !isShopEntryHidden(entry)) {
                 int maskedrequiredRaces = entry.requiredRaces & 0x1F;
                 if (maskedrequiredRaces <= coursesCompleted) {
                     count++;
