@@ -44,4 +44,15 @@ TEST_CASE("ShopManager functions work") {
         REQUIRE(shop.entries[12].itemType == 7);
         REQUIRE(shop.entries[12].modelId == ShopModel::Jabba);
     }
+
+    SECTION("Can get available shop checks") {
+        for (int i = 0; i < 42; i++) {
+            shop.entries[i].requiredRaces = 2;
+        }
+        REQUIRE(sm.GetAvailableShopChecks(2) == 42);
+        REQUIRE(sm.GetAvailableShopChecks(0) == 0);
+
+        shop.entries[4].requiredRaces |= ShopItemFlags::Purchased;
+        REQUIRE(sm.GetAvailableShopChecks(2) == 41);
+    }
 }
