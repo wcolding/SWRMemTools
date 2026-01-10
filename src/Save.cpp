@@ -4,8 +4,8 @@
 #include <algorithm>
 
 namespace SWRMemTools {
-    SaveManager::SaveManager(SaveData** _saveDataPtr) {
-        onlineSavePtr = _saveDataPtr;
+    SaveManager::SaveManager(SaveData** saveDataPtr) {
+        onlineSavePtr = saveDataPtr;
         onlineSave = nullptr;
     }
 
