@@ -184,4 +184,16 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(save.coursesCompleted == 0x05);
 		REQUIRE(sm.GetCompletedCourseCount() == 2);
 	}
+
+	SECTION("Test offline save sync") {
+		SaveData* onlinePtr = nullptr;
+		SaveManager offlineSM(&onlinePtr);
+		offlineSM.GiveAmateurCourse();
+		offlineSM.GiveAmateurCourse();
+		REQUIRE(save.amateurUnlocks == 1);
+
+		onlinePtr = &save;
+		offlineSM.SyncOfflineSaveData();
+		REQUIRE(save.amateurUnlocks == 0b00000111);
+	}
 }

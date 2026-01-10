@@ -145,6 +145,7 @@ namespace SWRMemTools {
         int GetCompletedCourseBitfield();
         int GetCompletedCourseCount();
         int GetFirstLockedCircuit();
+        void SyncOfflineSaveData();
 
         bool isSaveReady();
 
@@ -154,8 +155,9 @@ namespace SWRMemTools {
         int pitDroidChecksCompleted = 0;
         
     private:
-        SaveData** _saveDataPtr;
-        SaveData* _saveData;
+        SaveData** onlineSavePtr;
+        SaveData* onlineSave;
+        SaveData* offlineSave = new SaveData();
 
         int amateurCoursesReceived = 1;
         int semiproCoursesReceived = 0;
@@ -163,5 +165,6 @@ namespace SWRMemTools {
         int invitationalCoursesReceived = 0;
 
         void RecalculateCourseUnlockFlags();
+        SaveData* GetCurrentSavePtr();
     };
 }

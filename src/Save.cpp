@@ -4,22 +4,40 @@
 #include <algorithm>
 
 namespace SWRMemTools {
-    SaveManager::SaveManager(SaveData** saveDataPtr) {
-        _saveDataPtr = saveDataPtr;
-        _saveData = nullptr;
+    SaveManager::SaveManager(SaveData** _saveDataPtr) {
+        onlineSavePtr = _saveDataPtr;
+        onlineSave = nullptr;
     }
 
     bool SaveManager::isSaveReady() {
-        if (_saveDataPtr == nullptr)
+        if (onlineSavePtr == nullptr)
             return false;
 
-        _saveData = *_saveDataPtr;
+        onlineSave = *onlineSavePtr;
+        if (onlineSave == nullptr)
+            return false;
+        
         return true;
     }
 
+    SaveData* SaveManager::GetCurrentSavePtr() {
+        if (isSaveReady())
+            return onlineSave;
+        
+        return offlineSave;
+    }
+
+    void SaveManager::SyncOfflineSaveData() {
+        if (isSaveReady()) {
+            onlineSave->amateurUnlocks |= offlineSave->amateurUnlocks;
+            onlineSave->semiproUnlocks |= offlineSave->semiproUnlocks;
+            onlineSave->galacticUnlocks |= offlineSave->galacticUnlocks;
+            onlineSave->invitationalUnlocks |= offlineSave->invitationalUnlocks;
+        }
+    }
+
     void SaveManager::InitializeSaveData() {
-        if (!isSaveReady())
-            return;
+        SaveData* _saveData = GetCurrentSavePtr();
             
         _saveData->coursesCompleted = 0;
         _saveData->amateurUnlocks = 1;
@@ -50,8 +68,7 @@ namespace SWRMemTools {
     }
     
     void SaveManager::ResetSaveData() {
-        if (!isSaveReady())
-            return;
+        SaveData* _saveData = GetCurrentSavePtr();
 
         _saveData->racerUnlocks = 0;
 
@@ -65,10 +82,12 @@ namespace SWRMemTools {
     }
 
     void SaveManager::GiveMoney(int amount) {
+        SaveData* _saveData = GetCurrentSavePtr();
         _saveData->money += amount;
     }
 
     void SaveManager::GivePitDroid() {
+        SaveData* _saveData = GetCurrentSavePtr();
         _saveData->pitDroids++;
     }
 
@@ -77,6 +96,7 @@ namespace SWRMemTools {
     }
 
     void SaveManager::RecalculateCourseUnlockFlags() {
+        SaveData* _saveData = GetCurrentSavePtr();
         _saveData->amateurUnlocks |= static_cast<char>(pow(2, amateurCoursesReceived) - 1);
         _saveData->semiproUnlocks |= static_cast<char>(pow(2, semiproCoursesReceived) - 1);
         _saveData->galacticUnlocks |= static_cast<char>(pow(2, galacticCoursesReceived) - 1);
@@ -105,7 +125,9 @@ namespace SWRMemTools {
 
 
     void SaveManager::GiveCircuitPass(int circuit) {
+        SaveData* _saveData = GetCurrentSavePtr();
         int next;
+
         switch (circuit) {
         case AMATEUR_CIRCUIT:
             if (_saveData->amateurUnlocks == 0)
@@ -147,48 +169,56 @@ namespace SWRMemTools {
     }
 
     void SaveManager::GiveTractionPart(int level) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if (GivePart(_saveData->tractionLevel, level)) {
             _saveData->tractionHealth = 0xFF;
         }
     }
 
     void SaveManager::GiveTurningPart(int level) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if (GivePart(_saveData->turningLevel, level)) {
             _saveData->turningHealth = 0xFF;
         }
     }
 
     void SaveManager::GiveAccelerationPart(int level) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if (GivePart(_saveData->accelerationLevel, level)) {
             _saveData->accelerationHealth = 0xFF;
         }
     }
 
     void SaveManager::GiveTopSpeedPart(int level) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if (GivePart(_saveData->topSpeedLevel, level)) {
             _saveData->topSpeedHealth = 0xFF;
         }
     }
 
     void SaveManager::GiveAirbrakePart(int level) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if (GivePart(_saveData->airbrakeLevel, level)) {
             _saveData->airbrakeHealth = 0xFF;
         }
     }
 
     void SaveManager::GiveCoolingPart(int level) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if (GivePart(_saveData->coolingLevel, level)) {
             _saveData->coolingHealth = 0xFF;
         }
     }
 
     void SaveManager::GiveRepairPart(int level) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if (GivePart(_saveData->repairLevel, level)) {
             _saveData->repairHealth = 0xFF;
         }
     }
 
     int SaveManager::GetPartLevel(int part) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if ((part < TRACTION_PART) || (part > REPAIR_PART))
             return -1;
 
@@ -197,6 +227,7 @@ namespace SWRMemTools {
     }
 
     int SaveManager::GetCircuitUnlocks(int circuit) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if ((circuit < AMATEUR_CIRCUIT) || (circuit > INVITATIONAL_CIRCUIT))
             return 0;
 
@@ -205,6 +236,7 @@ namespace SWRMemTools {
     }
 
     int SaveManager::GetPartHealth(int part) {
+        SaveData* _saveData = GetCurrentSavePtr();
         if ((part < TRACTION_PART) || (part > REPAIR_PART))
             return -1;
 
@@ -214,6 +246,7 @@ namespace SWRMemTools {
 
     std::vector<RacerUnlocks> SaveManager::GetRacerUnlockLocations() {
         std::vector<RacerUnlocks> checks;
+        SaveData* _saveData = GetCurrentSavePtr();
         
         for (int i = 1; i < static_cast<int>(RacerUnlocks::BullseyeNavior) << 1; i <<= 1) {
             if (_saveData->racerUnlocks & i) {
@@ -225,23 +258,30 @@ namespace SWRMemTools {
     }
 
     void SaveManager::SetPartialSeed(unsigned long long partialSeed) {
-        _saveData->apPartialSeed = partialSeed;
+        if (onlineSave != nullptr)
+            onlineSave->apPartialSeed = partialSeed;
     }
 
     unsigned long long SaveManager::GetPartialSeed() {
-        return _saveData->apPartialSeed;
+        if (onlineSave != nullptr)
+            return onlineSave->apPartialSeed;
+        
+        return 0;
     }
 
     void SaveManager::SetCourseAsCompleted(int index) {
+        SaveData* _saveData = GetCurrentSavePtr();
         int flag = 1 << index;
         _saveData->coursesCompleted |= flag;
     }
 
     int SaveManager::GetCompletedCourseBitfield() {
+        SaveData* _saveData = GetCurrentSavePtr();
         return _saveData->coursesCompleted;
     }
 
     int SaveManager::GetCompletedCourseCount() {
+        SaveData* _saveData = GetCurrentSavePtr();
         int count = 0;
         int flag;
 
@@ -256,6 +296,7 @@ namespace SWRMemTools {
     }
 
     int SaveManager::GetFirstLockedCircuit() {
+        SaveData* _saveData = GetCurrentSavePtr();
         for (int i = 0; i < 4; i++) {
             auto unlocksPtr = &_saveData->amateurUnlocks + i; 
             if (*unlocksPtr == 0)
