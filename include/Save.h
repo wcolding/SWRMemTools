@@ -164,6 +164,8 @@ namespace SWRMemTools {
         int galacticCoursesReceived = 0;
         int invitationalCoursesReceived = 0;
 
+        bool isOffline = true;
+
         void RecalculateCourseUnlockFlags();
         SaveData* GetCurrentSavePtr();
     };

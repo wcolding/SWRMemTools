@@ -190,10 +190,19 @@ TEST_CASE("SaveManager functions work") {
 		SaveManager offlineSM(&onlinePtr);
 		offlineSM.GiveAmateurCourse();
 		offlineSM.GiveAmateurCourse();
-		REQUIRE(save.amateurUnlocks == 1);
+		REQUIRE(save.amateurUnlocks == 0b00000001);
 
 		onlinePtr = &save;
+		REQUIRE(save.amateurUnlocks == 0b00000001);
+		offlineSM.GiveAmateurCourse();
+		REQUIRE(save.amateurUnlocks == 0b00001111);
+
+		onlinePtr = nullptr;
+		offlineSM.GiveAmateurCourse();
+		REQUIRE(save.amateurUnlocks == 0b00001111);
+		
+		onlinePtr = &save;
 		offlineSM.SyncOfflineSaveData();
-		REQUIRE(save.amateurUnlocks == 0b00000111);
+		REQUIRE(save.amateurUnlocks == 0b00011111);
 	}
 }

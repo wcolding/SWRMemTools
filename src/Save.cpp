@@ -22,8 +22,13 @@ namespace SWRMemTools {
 
     SaveData* SaveManager::GetCurrentSavePtr() {
         if (isSaveReady())
+        {
+            if (isOffline)
+                SyncOfflineSaveData();
             return onlineSave;
+        }
         
+        isOffline = true;
         return offlineSave;
     }
 
@@ -33,6 +38,7 @@ namespace SWRMemTools {
             onlineSave->semiproUnlocks |= offlineSave->semiproUnlocks;
             onlineSave->galacticUnlocks |= offlineSave->galacticUnlocks;
             onlineSave->invitationalUnlocks |= offlineSave->invitationalUnlocks;
+            isOffline = false;
         }
     }
 
