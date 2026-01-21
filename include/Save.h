@@ -38,7 +38,10 @@ namespace SWRMemTools {
         char galacticUnlocks;
         char invitationalUnlocks;
         char progressivePasses;    // unk_01 being used to track progressive passes
-        unsigned long long racePlacements;
+        short amateurRacePlacements;
+        short semiproRacePlacements;
+        short galacticRacePlacements;
+        short invitationalRacePlacements;
     private:
         char unk_02[0x02];
     public:
@@ -141,7 +144,7 @@ namespace SWRMemTools {
         int GetCircuitUnlocks(int circuit);
         void SetPartialSeed(unsigned long long partialSeed);
         unsigned long long GetPartialSeed();
-        void SetCourseAsCompleted(int index);
+        void SetCourseAsCompleted(int circuit, int index);
         int GetCompletedCourseBitfield();
         int GetCompletedCourseCount();
         int GetFirstLockedCircuit();

@@ -275,10 +275,29 @@ namespace SWRMemTools {
         return 0;
     }
 
-    void SaveManager::SetCourseAsCompleted(int index) {
+    void SaveManager::SetCourseAsCompleted(int circuit, int index) {
         SaveData* _saveData = GetCurrentSavePtr();
-        int flag = 1 << index;
+        int flag = 1 << ((circuit * 7) + index);
         _saveData->coursesCompleted |= flag;
+
+        int placement = 0b11 << (index * 2);
+        
+        switch (circuit) {
+        case AMATEUR_CIRCUIT:
+            _saveData->amateurRacePlacements |= placement;
+            break;
+        case SEMIPRO_CIRCUIT:
+            _saveData->semiproRacePlacements |= placement;
+            break;
+        case GALACTIC_CIRCUIT:
+            _saveData->galacticRacePlacements |= placement;
+            break;
+        case INVITATIONAL_CIRCUIT:
+            _saveData->invitationalRacePlacements |= placement;
+            break;
+        default:
+            break;
+        }
     }
 
     int SaveManager::GetCompletedCourseBitfield() {

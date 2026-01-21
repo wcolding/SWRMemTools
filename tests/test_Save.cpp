@@ -178,11 +178,18 @@ TEST_CASE("SaveManager functions work") {
 	SECTION("Check completed courses") {
 		save.coursesCompleted = 0x01;
 		REQUIRE(sm.GetCompletedCourseCount() == 1);
-		sm.SetCourseAsCompleted(0);
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 0);
 		REQUIRE(sm.GetCompletedCourseCount() == 1);
-		sm.SetCourseAsCompleted(2);
+		REQUIRE(save.amateurRacePlacements == static_cast <short>(0x03));
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 2);
 		REQUIRE(save.coursesCompleted == 0x05);
+		REQUIRE(save.amateurRacePlacements == static_cast <short>(0x33));
 		REQUIRE(sm.GetCompletedCourseCount() == 2);
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 1);
+		REQUIRE(sm.GetCompletedCourseCount() == 3);
+		REQUIRE(save.amateurRacePlacements == static_cast <short>(0x33));
+		REQUIRE(save.galacticRacePlacements == static_cast <short>(0x0C));
+
 	}
 
 	SECTION("Test offline save sync") {
