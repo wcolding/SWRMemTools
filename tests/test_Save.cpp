@@ -211,5 +211,17 @@ TEST_CASE("SaveManager functions work") {
 		onlinePtr = &save;
 		offlineSM.SyncOfflineSaveData();
 		REQUIRE(save.amateurUnlocks == 0b00011111);
+
+		offlineSM.GiveAccelerationPart();
+		REQUIRE(save.accelerationLevel == 1);
+		onlinePtr = nullptr;
+		offlineSM.GiveAccelerationPart();
+		REQUIRE(save.accelerationLevel == 1);
+
+		save.accelerationHealth = 0x80;
+		onlinePtr = &save;
+		offlineSM.SyncOfflineSaveData();
+		REQUIRE(save.accelerationLevel == 2);
+		REQUIRE(save.accelerationHealth == static_cast <char>(0xFF));
 	}
 }

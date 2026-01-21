@@ -38,6 +38,45 @@ namespace SWRMemTools {
             onlineSave->semiproUnlocks |= offlineSave->semiproUnlocks;
             onlineSave->galacticUnlocks |= offlineSave->galacticUnlocks;
             onlineSave->invitationalUnlocks |= offlineSave->invitationalUnlocks;
+
+            onlineSave->tractionLevel += offlineSave->tractionLevel;
+            onlineSave->tractionHealth = offlineSave->tractionHealth;
+
+            onlineSave->turningLevel += offlineSave->turningLevel;
+            onlineSave->turningHealth = offlineSave->turningHealth;
+
+            onlineSave->accelerationLevel += offlineSave->accelerationLevel;
+            onlineSave->accelerationHealth = offlineSave->accelerationHealth;
+
+            onlineSave->topSpeedLevel += offlineSave->topSpeedLevel;
+            onlineSave->topSpeedHealth = offlineSave->topSpeedHealth;
+
+            onlineSave->airbrakeLevel += offlineSave->airbrakeLevel;
+            onlineSave->airbrakeHealth = offlineSave->airbrakeHealth;
+
+            onlineSave->coolingLevel += offlineSave->coolingLevel;
+            onlineSave->coolingHealth = offlineSave->coolingHealth;
+
+            onlineSave->repairLevel += offlineSave->repairLevel;
+            onlineSave->repairHealth = offlineSave->repairHealth;
+
+            onlineSave->amateurRacePlacements |= offlineSave->amateurRacePlacements;
+            onlineSave->semiproRacePlacements |= offlineSave->semiproRacePlacements;
+            onlineSave->galacticRacePlacements |= offlineSave->galacticRacePlacements;
+            onlineSave->invitationalRacePlacements |= offlineSave->invitationalRacePlacements;
+            onlineSave->coursesCompleted += offlineSave->coursesCompleted;
+
+            // Reset offline values
+            offlineSave->tractionLevel = 0;
+            offlineSave->turningLevel = 0;
+            offlineSave->accelerationLevel = 0;
+            offlineSave->topSpeedLevel = 0;
+            offlineSave->airbrakeLevel = 0;
+            offlineSave->coolingLevel = 0;
+            offlineSave->repairLevel = 0;
+
+            offlineSave->coursesCompleted = 0;
+
             isOffline = false;
         }
     }
@@ -71,6 +110,11 @@ namespace SWRMemTools {
         _saveData->airbrakeHealth = 0xFF;
         _saveData->coolingHealth = 0xFF;
         _saveData->repairHealth = 0xFF;
+
+        _saveData->amateurRacePlacements = 0;
+        _saveData->semiproRacePlacements = 0;
+        _saveData->galacticRacePlacements = 0;
+        _saveData->invitationalRacePlacements = 0;
     }
     
     void SaveManager::ResetSaveData() {
@@ -85,6 +129,11 @@ namespace SWRMemTools {
         _saveData->airbrakeLevel = 0;
         _saveData->coolingLevel = 0;
         _saveData->repairLevel = 0;
+
+        amateurCoursesReceived = 1;
+        semiproCoursesReceived = 0;
+        galacticCoursesReceived = 0;
+        invitationalCoursesReceived = 0;
     }
 
     void SaveManager::GiveMoney(int amount) {
