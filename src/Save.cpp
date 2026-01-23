@@ -64,7 +64,7 @@ namespace SWRMemTools {
             onlineSave->semiproRacePlacements |= offlineSave->semiproRacePlacements;
             onlineSave->galacticRacePlacements |= offlineSave->galacticRacePlacements;
             onlineSave->invitationalRacePlacements |= offlineSave->invitationalRacePlacements;
-            onlineSave->coursesCompleted += offlineSave->coursesCompleted;
+            onlineSave->coursesCompleted |= offlineSave->coursesCompleted;
 
             // Reset offline values
             offlineSave->tractionLevel = 0;
@@ -74,8 +74,6 @@ namespace SWRMemTools {
             offlineSave->airbrakeLevel = 0;
             offlineSave->coolingLevel = 0;
             offlineSave->repairLevel = 0;
-
-            offlineSave->coursesCompleted = 0;
 
             isOffline = false;
         }
