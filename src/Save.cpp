@@ -132,6 +132,10 @@ namespace SWRMemTools {
         semiproCoursesReceived = 0;
         galacticCoursesReceived = 0;
         invitationalCoursesReceived = 0;
+
+        semiproPassReceived = false;
+        galacticPassReceived = false;
+        invitationalPassReceived = false;
     }
 
     void SaveManager::GiveMoney(int amount) {
@@ -187,20 +191,44 @@ namespace SWRMemTools {
                 GiveAmateurCourse();
             break;
         case SEMIPRO_CIRCUIT:
-            if (_saveData->semiproUnlocks == 0)
+            if (!semiproPassReceived)
+            {
+                semiproPassReceived = true;
                 GiveSemiproCourse();
+            }
             break;
         case GALACTIC_CIRCUIT:
-            if (_saveData->galacticUnlocks == 0)
+            if (!galacticPassReceived)
+            {
+                galacticPassReceived = true;
                 GiveGalacticCourse();
+            }
             break;
         case INVITATIONAL_CIRCUIT:
-            if (_saveData->invitationalUnlocks == 0)
+            if (!invitationalPassReceived)
+            {
+                invitationalPassReceived = true;
                 GiveInvitationalCourse();
+            }
             break;
         case PROGRESSIVE_CIRCUIT:
-            next = GetFirstLockedCircuit();
-            GiveCircuitPass(next);
+            if (!semiproPassReceived)
+            {
+                GiveCircuitPass(SEMIPRO_CIRCUIT);
+                break;
+            }
+
+            if (!galacticPassReceived)
+            {
+                GiveCircuitPass(GALACTIC_CIRCUIT);
+                break;
+            }
+
+            if (!invitationalPassReceived)
+            {
+                GiveCircuitPass(INVITATIONAL_CIRCUIT);
+                break;
+            }
             break;
         default:
             break;

@@ -167,6 +167,10 @@ namespace SWRMemTools {
         int galacticCoursesReceived = 0;
         int invitationalCoursesReceived = 0;
 
+        bool semiproPassReceived = false;
+        bool galacticPassReceived = false;
+        bool invitationalPassReceived = false;
+
         bool isOffline = true;
 
         void RecalculateCourseUnlockFlags();
