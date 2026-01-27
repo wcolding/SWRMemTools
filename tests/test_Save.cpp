@@ -27,12 +27,22 @@ TEST_CASE("SaveManager functions work") {
 	}
 
 	SECTION("Reset function works") {
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000000);
+		REQUIRE(save.tractionLevel == 0);
+
 		sm.GiveTractionPart();
+		REQUIRE(save.tractionLevel == 1);
 		sm.GiveGalacticCourse();
+		sm.GiveGalacticCourse();
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000011);
+		sm.GiveCircuitPass(INVITATIONAL_CIRCUIT);
+		REQUIRE(sm.GetCircuitUnlocks(INVITATIONAL_CIRCUIT) == 0b00000001);
+
 		sm.ResetSaveData();
 
 		REQUIRE(save.tractionLevel == 0);
-		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000001);
+		REQUIRE(sm.GetCircuitUnlocks(GALACTIC_CIRCUIT) == 0b00000000);
+		REQUIRE(sm.GetCircuitUnlocks(INVITATIONAL_CIRCUIT) == 0b00000000);
 	}
 
 	SECTION("GiveMoney works") {
