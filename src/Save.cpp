@@ -128,10 +128,15 @@ namespace SWRMemTools {
         _saveData->coolingLevel = 0;
         _saveData->repairLevel = 0;
 
+        _saveData->amateurUnlocks = 1;
+        _saveData->semiproUnlocks = 0;
+        _saveData->galacticUnlocks = 0;
+        _saveData->invitationalUnlocks = 0;
+
         amateurCoursesReceived = 1;
         semiproCoursesReceived = 0;
         galacticCoursesReceived = 0;
-        invitationalCoursesReceived = 0;
+        invitationalCoursesReceived = 0; 
 
         semiproPassReceived = false;
         galacticPassReceived = false;
@@ -186,10 +191,6 @@ namespace SWRMemTools {
         int next;
 
         switch (circuit) {
-        case AMATEUR_CIRCUIT:
-            if (_saveData->amateurUnlocks == 0)
-                GiveAmateurCourse();
-            break;
         case SEMIPRO_CIRCUIT:
             if (!semiproPassReceived)
             {
