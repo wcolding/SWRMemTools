@@ -199,7 +199,45 @@ TEST_CASE("SaveManager functions work") {
 		REQUIRE(sm.GetCompletedCourseCount() == 3);
 		REQUIRE(save.amateurRacePlacements == static_cast <short>(0x33));
 		REQUIRE(save.galacticRacePlacements == static_cast <short>(0x0C));
+	}
 
+	SECTION("Check completed course calculation") {
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 0);
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 1);
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 2);
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 3);
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 4);
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 5);
+		sm.SetCourseAsCompleted(AMATEUR_CIRCUIT, 6);
+
+		REQUIRE(save.coursesCompleted == 0x0000007F);
+
+		sm.SetCourseAsCompleted(SEMIPRO_CIRCUIT, 0);
+		sm.SetCourseAsCompleted(SEMIPRO_CIRCUIT, 1);
+		sm.SetCourseAsCompleted(SEMIPRO_CIRCUIT, 2);
+		sm.SetCourseAsCompleted(SEMIPRO_CIRCUIT, 3);
+		sm.SetCourseAsCompleted(SEMIPRO_CIRCUIT, 4);
+		sm.SetCourseAsCompleted(SEMIPRO_CIRCUIT, 5);
+		sm.SetCourseAsCompleted(SEMIPRO_CIRCUIT, 6);
+		
+		REQUIRE(save.coursesCompleted == 0x00003FFF);
+
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 0);
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 1);
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 2);
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 3);
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 4);
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 5);
+		sm.SetCourseAsCompleted(GALACTIC_CIRCUIT, 6);
+
+		REQUIRE(save.coursesCompleted == 0x001FFFFF);
+
+		sm.SetCourseAsCompleted(INVITATIONAL_CIRCUIT, 0);
+		sm.SetCourseAsCompleted(INVITATIONAL_CIRCUIT, 1);
+		sm.SetCourseAsCompleted(INVITATIONAL_CIRCUIT, 2);
+		sm.SetCourseAsCompleted(INVITATIONAL_CIRCUIT, 3);
+		
+		REQUIRE(save.coursesCompleted == 0x01FFFFFF);
 	}
 
 	SECTION("Test offline save sync") {
@@ -236,5 +274,31 @@ TEST_CASE("SaveManager functions work") {
 		offlineSM.SyncOfflineSaveData();
 		REQUIRE(save.accelerationLevel == 2);
 		REQUIRE(save.accelerationHealth == static_cast <char>(0xFF));
+	}
+
+	SECTION("Simulate async circuit pass sequence") {
+		sm.GiveCircuitPass(PROGRESSIVE_CIRCUIT);
+		REQUIRE(sm.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000001);
+		sm.GiveSemiproCourse();
+		REQUIRE(sm.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000011);
+
+
+		// Player closes and restarts game
+		sm.ResetSaveData();
+		SaveData* onlinePtr = nullptr;
+		SaveManager offlineSM(&onlinePtr);
+
+		// Client calls ResetSaveData
+		offlineSM.ResetSaveData();
+		REQUIRE(offlineSM.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0);
+
+		// Items get processed out of order, possibly?
+		offlineSM.GiveSemiproCourse();
+		REQUIRE(offlineSM.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000001);
+		offlineSM.GiveCircuitPass(PROGRESSIVE_CIRCUIT);
+		REQUIRE(offlineSM.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000011);
+		onlinePtr = &save;
+		offlineSM.SyncOfflineSaveData();
+		REQUIRE(sm.GetCircuitUnlocks(SEMIPRO_CIRCUIT) == 0b00000011);
 	}
 }
