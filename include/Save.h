@@ -155,7 +155,7 @@ namespace SWRMemTools {
         std::vector<RacerUnlocks> GetRacerUnlockLocations();
 
         RacerUnlocks apRacerUnlocks = RacerUnlocks::None;
-        int pitDroidChecksCompleted = 0;
+        int pitDroidLocationsChecked = 0;
         
     private:
         SaveData** onlineSavePtr;
