@@ -118,7 +118,6 @@ namespace SWRMemTools {
     void SaveManager::ResetSaveData() {
         SaveData* _saveData = GetCurrentSavePtr();
 
-        _saveData->coursesCompleted = 0;
         _saveData->racerUnlocks = 0;
 
         _saveData->tractionLevel = 0;
